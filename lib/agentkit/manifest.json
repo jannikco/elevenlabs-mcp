@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "product": "pipmcp",
+  "credential": "PIPMCP_API_KEY",
+  "skills": [
+    {
+      "name": "pipmcp-elevenlabs",
+      "description": "Connect AI agents to ElevenLabs using one PipMCP API key and actual hosted tool discovery."
+    }
+  ],
+  "files": {
+    "skills/pipmcp-elevenlabs/SKILL.md": "bfe33c7a16e5ef627b6d723f4d4595ea92f9f8af1ed03e77d55436db450fb331"
+  }
+}
