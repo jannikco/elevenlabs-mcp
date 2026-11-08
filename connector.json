@@ -1,0 +1,163 @@
+{
+  "id": "elevenlabs",
+  "name": "ElevenLabs",
+  "version": "0.1.0",
+  "baseUrl": "https://api.elevenlabs.io",
+  "auth": {
+    "type": "header",
+    "env": "ELEVENLABS_API_KEY",
+    "header": "xi-api-key"
+  },
+  "description": "Find voices and compare model capabilities using JSON metadata. This connector does not synthesize or stream audio.",
+  "tools": [
+    {
+      "name": "list_voices",
+      "description": "Search available voices with an explicit next-page token.",
+      "method": "GET",
+      "path": "/v2/voices",
+      "readOnly": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "search": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "page_size": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "next_page_token": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "bindings": {
+        "path": [],
+        "query": {
+          "search": "search",
+          "page_size": "page_size",
+          "next_page_token": "next_page_token"
+        },
+        "body": {}
+      },
+      "sampleArguments": {
+        "search": "narration",
+        "page_size": 10
+      },
+      "provenance": [
+        "https://api.elevenlabs.io/openapi.json"
+      ],
+      "pagination": {
+        "type": "cursor",
+        "cursorInput": "next_page_token",
+        "nextCursorPath": "next_page_token",
+        "hasMorePath": "has_more"
+      }
+    },
+    {
+      "name": "list_models",
+      "description": "Compare model capabilities and supported languages before selecting a voice workflow.",
+      "method": "GET",
+      "path": "/v1/models",
+      "readOnly": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "bindings": {
+        "path": [],
+        "query": {},
+        "body": {}
+      },
+      "sampleArguments": {},
+      "provenance": [
+        "https://api.elevenlabs.io/openapi.json"
+      ]
+    }
+  ],
+  "provenance": [
+    "https://api.elevenlabs.io/openapi.json"
+  ],
+  "sourceEvidence": [
+    {
+      "url": "https://api.elevenlabs.io/openapi.json",
+      "sha256": "794bccdc06ac77a90e576807fac9d00204f5af6bba115a84bfd71ace208c11dc",
+      "checkedAt": "2026-11-08T13:24:07.469650+00:00",
+      "method": "https-get"
+    }
+  ],
+  "verification": "mock-only",
+  "providerLiveValidation": "not-run",
+  "workflow": {
+    "name": "Choose voice and model",
+    "description": "Search voice metadata and inspect model language/capability metadata to prepare a compatible audio workflow. Audio generation remains in the provider SDK, not this JSON connector.",
+    "steps": [
+      "list_voices",
+      "list_models"
+    ]
+  },
+  "repoId": "elevenlabs-mcp",
+  "appSlug": "elevenlabs",
+  "product": "pipmcp",
+  "artifactType": "connector",
+  "sourceRevision": "636ab4413359f1644be53ecdc5be90be09224bd48763fdc1965052c24abee90d",
+  "capabilityEvidence": {
+    "local": {
+      "level": "Tested",
+      "operations": [
+        {
+          "name": "list_voices",
+          "level": "Tested",
+          "evidenceRefs": [
+            "Provider request/stdio contract tests"
+          ],
+          "method": "contract-fixture"
+        },
+        {
+          "name": "list_models",
+          "level": "Tested",
+          "evidenceRefs": [
+            "Provider request/stdio contract tests"
+          ],
+          "method": "contract-fixture"
+        }
+      ],
+      "evidenceRefs": [
+        "Provider request/stdio contract tests"
+      ],
+      "mode": "local"
+    },
+    "managed": {
+      "level": "Documented",
+      "operations": [
+        {
+          "name": "list_voices",
+          "level": "Documented",
+          "evidenceRefs": [],
+          "method": "documentation"
+        },
+        {
+          "name": "list_models",
+          "level": "Documented",
+          "evidenceRefs": [],
+          "method": "documentation"
+        }
+      ],
+      "evidenceRefs": [],
+      "mode": "managed"
+    }
+  },
+  "managedAvailability": {
+    "status": "listed",
+    "checkedAt": "2026-11-08T13:20:45.156456+00:00"
+  }
+}
